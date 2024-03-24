@@ -1,103 +1,245 @@
 {
  "cells": [
   {
+   "cell_type": "markdown",
+   "id": "91d3a79b",
+   "metadata": {
+    "papermill": {
+     "duration": 0.004183,
+     "end_time": "2024-03-24T15:26:52.037507",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.033324",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "# 第6章 関数"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "883ee536",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003404,
+     "end_time": "2024-03-24T15:26:52.044514",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.041110",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "## 6-1評価環境"
+   ]
+  },
+  {
    "cell_type": "code",
    "execution_count": 1,
-   "id": "1eb73167",
+   "id": "10541fbc",
    "metadata": {
+    "_execution_state": "idle",
+    "_uuid": "051d70d956493feee0c6d64651c6a088724dca2a",
     "execution": {
-     "iopub.execute_input": "2024-03-24T15:08:25.613668Z",
-     "iopub.status.busy": "2024-03-24T15:08:25.611660Z",
-     "iopub.status.idle": "2024-03-24T15:08:25.731062Z",
-     "shell.execute_reply": "2024-03-24T15:08:25.729084Z"
+     "iopub.execute_input": "2024-03-24T15:26:52.056597Z",
+     "iopub.status.busy": "2024-03-24T15:26:52.054091Z",
+     "iopub.status.idle": "2024-03-24T15:26:52.219157Z",
+     "shell.execute_reply": "2024-03-24T15:26:52.217078Z"
     },
     "papermill": {
-     "duration": 0.126045,
-     "end_time": "2024-03-24T15:08:25.733778",
+     "duration": 0.17418,
+     "end_time": "2024-03-24T15:26:52.221999",
      "exception": false,
-     "start_time": "2024-03-24T15:08:25.607733",
+     "start_time": "2024-03-24T15:26:52.047819",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [],
    "source": [
-    "# テストだよ"
+    "# 関数の実行環境を出力する関数を定義する\n",
+    "fun <- function(){\n",
+    "    e <- environment()\n",
+    "    print(e)\n",
+    "    print(parent.env(e))\n",
+    "}"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 2,
-   "id": "908f0084",
+   "id": "ca5f509b",
    "metadata": {
-    "_execution_state": "idle",
-    "_uuid": "051d70d956493feee0c6d64651c6a088724dca2a",
     "execution": {
-     "iopub.execute_input": "2024-03-24T15:08:25.776174Z",
-     "iopub.status.busy": "2024-03-24T15:08:25.739085Z",
-     "iopub.status.idle": "2024-03-24T15:08:26.810877Z",
-     "shell.execute_reply": "2024-03-24T15:08:26.809137Z"
+     "iopub.execute_input": "2024-03-24T15:26:52.271900Z",
+     "iopub.status.busy": "2024-03-24T15:26:52.230669Z",
+     "iopub.status.idle": "2024-03-24T15:26:52.290079Z",
+     "shell.execute_reply": "2024-03-24T15:26:52.287516Z"
     },
     "papermill": {
-     "duration": 1.078032,
-     "end_time": "2024-03-24T15:08:26.813385",
+     "duration": 0.068205,
+     "end_time": "2024-03-24T15:26:52.293468",
      "exception": false,
-     "start_time": "2024-03-24T15:08:25.735353",
+     "start_time": "2024-03-24T15:26:52.225263",
      "status": "completed"
     },
     "tags": []
    },
    "outputs": [
     {
-     "name": "stderr",
+     "name": "stdout",
      "output_type": "stream",
      "text": [
-      "── \u001b[1mAttaching core tidyverse packages\u001b[22m ──────────────────────── tidyverse 2.0.0 ──\n",
-      "\u001b[32m✔\u001b[39m \u001b[34mdplyr    \u001b[39m 1.1.4     \u001b[32m✔\u001b[39m \u001b[34mreadr    \u001b[39m 2.1.4\n",
-      "\u001b[32m✔\u001b[39m \u001b[34mforcats  \u001b[39m 1.0.0     \u001b[32m✔\u001b[39m \u001b[34mstringr  \u001b[39m 1.5.1\n",
-      "\u001b[32m✔\u001b[39m \u001b[34mggplot2  \u001b[39m 3.4.4     \u001b[32m✔\u001b[39m \u001b[34mtibble   \u001b[39m 3.2.1\n",
-      "\u001b[32m✔\u001b[39m \u001b[34mlubridate\u001b[39m 1.9.3     \u001b[32m✔\u001b[39m \u001b[34mtidyr    \u001b[39m 1.3.0\n",
-      "\u001b[32m✔\u001b[39m \u001b[34mpurrr    \u001b[39m 1.0.2     \n",
-      "── \u001b[1mConflicts\u001b[22m ────────────────────────────────────────── tidyverse_conflicts() ──\n",
-      "\u001b[31m✖\u001b[39m \u001b[34mdplyr\u001b[39m::\u001b[32mfilter()\u001b[39m masks \u001b[34mstats\u001b[39m::filter()\n",
-      "\u001b[31m✖\u001b[39m \u001b[34mdplyr\u001b[39m::\u001b[32mlag()\u001b[39m    masks \u001b[34mstats\u001b[39m::lag()\n",
-      "\u001b[36mℹ\u001b[39m Use the conflicted package (\u001b[3m\u001b[34m<http://conflicted.r-lib.org/>\u001b[39m\u001b[23m) to force all conflicts to become errors\n"
+      "<environment: 0x5bf9a98a1968>\n",
+      "<environment: R_GlobalEnv>\n"
      ]
-    },
-    {
-     "data": {
-      "text/html": [],
-      "text/latex": [],
-      "text/markdown": [],
-      "text/plain": [
-       "character(0)"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
     }
    ],
    "source": [
-    "# This R environment comes with many helpful analytics packages installed\n",
-    "# It is defined by the kaggle/rstats Docker image: https://github.com/kaggle/docker-rstats\n",
-    "# For example, here's a helpful package to load\n",
-    "\n",
-    "library(tidyverse) # metapackage of all tidyverse packages\n",
-    "\n",
-    "# Input data files are available in the read-only \"../input/\" directory\n",
-    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
-    "\n",
-    "list.files(path = \"../input\")\n",
-    "\n",
-    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
-    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+    "# 関数の評価環境を出力する\n",
+    "fun()"
    ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "b224b983",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-03-24T15:26:52.304426Z",
+     "iopub.status.busy": "2024-03-24T15:26:52.302589Z",
+     "iopub.status.idle": "2024-03-24T15:26:52.331340Z",
+     "shell.execute_reply": "2024-03-24T15:26:52.328819Z"
+    },
+    "papermill": {
+     "duration": 0.037767,
+     "end_time": "2024-03-24T15:26:52.334659",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.296892",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<environment: 0x5bf9a7fd7d30>\n",
+      "<environment: R_GlobalEnv>\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 関数の評価環境を調べる（直前の呼び出しと結果が変わる）\n",
+    "fun()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ae3111b3",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003519,
+     "end_time": "2024-03-24T15:26:52.341679",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.338160",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "source": [
+    "### 6-1-1 親環境"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "2b1830af",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-03-24T15:26:52.353044Z",
+     "iopub.status.busy": "2024-03-24T15:26:52.351244Z",
+     "iopub.status.idle": "2024-03-24T15:26:52.370021Z",
+     "shell.execute_reply": "2024-03-24T15:26:52.368077Z"
+    },
+    "papermill": {
+     "duration": 0.028234,
+     "end_time": "2024-03-24T15:26:52.373626",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.345392",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# 関数の親環境を変更する\n",
+    "e <- new.env(parent = baseenv())\n",
+    "environment(fun) <- e"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "5fd641d9",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2024-03-24T15:26:52.384961Z",
+     "iopub.status.busy": "2024-03-24T15:26:52.383194Z",
+     "iopub.status.idle": "2024-03-24T15:26:52.413249Z",
+     "shell.execute_reply": "2024-03-24T15:26:52.411005Z"
+    },
+    "papermill": {
+     "duration": 0.039363,
+     "end_time": "2024-03-24T15:26:52.416624",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.377261",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<environment: 0x5bf9a8c9ecd8>\n",
+      "<environment: 0x5bf9a9d8c8d8>\n",
+      "<environment: 0x5bf9a8c9ecd8>\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 関数の評価環境を調べる\n",
+    "print(e)\n",
+    "fun()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "518734ed",
+   "metadata": {
+    "papermill": {
+     "duration": 0.003796,
+     "end_time": "2024-03-24T15:26:52.424528",
+     "exception": false,
+     "start_time": "2024-03-24T15:26:52.420732",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {
   "kaggle": {
    "accelerator": "none",
    "dataSources": [],
+   "dockerImageVersionId": 30618,
    "isGpuEnabled": false,
    "isInternetEnabled": true,
    "language": "r",
@@ -118,14 +260,14 @@
   },
   "papermill": {
    "default_parameters": {},
-   "duration": 4.616058,
-   "end_time": "2024-03-24T15:08:26.936138",
+   "duration": 4.605891,
+   "end_time": "2024-03-24T15:26:52.552424",
    "environment_variables": {},
    "exception": null,
    "input_path": "__notebook__.ipynb",
    "output_path": "__notebook__.ipynb",
    "parameters": {},
-   "start_time": "2024-03-24T15:08:22.320080",
+   "start_time": "2024-03-24T15:26:47.946533",
    "version": "2.5.0"
   }
  },
