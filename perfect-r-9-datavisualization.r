@@ -315,7 +315,7 @@ axis(
         expression(paste(frac(1, 2), pi)),
         expression(pi),
         expression(paste(frac(3, 2), pi)),
-        expression(paste(2, pi))
+        expression(pastAe(2, pi))
     ),
     outer = TRUE,
     padj = 0.5
@@ -590,3 +590,5 @@ plot(1:10, pch = 1:10)
 
 # 描画結果を画像ファイルにコピーする
 dev.print(device = png, filename = 'copy.png', width = 600, height = 600)
+
+
